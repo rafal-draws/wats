@@ -49,7 +49,7 @@ function gatherScenariosToRemoval() {
         
             console.log(dataDict)
 
-            sendForExecution(dataDict)
+            sendForRemoval(dataDict)
         }
     }
 
