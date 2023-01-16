@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="../static/ScenarioOperations.js"></script>
+<div class="scenario-list-container">
+    
+    
+    <h2>{% block title %}Wykonane Scenariusze testowe{% endblock %}</h2>
+
+
+    {% for execution in executions %}
+    
+    <ul>
+        
+    <li>Nazwa scenariusza: {{ execution.name }}</li>
+    <li>Status: {{ execution.status }}</li>
+    <li>Autor: {{ execution.author }}</li>    
+    <li>
+        <ul> LOGI:
+            {% for log in execution.logs.split("||") %}
+
+            <li>
+            {{ log }}
+            </li>
+
+            {% endfor %}
+        </ul>
+    </li>    
+    </ul>
+    {% endfor %}
+
+
+    </div>
+
+
+{% endblock %}

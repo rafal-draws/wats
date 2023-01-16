@@ -2,33 +2,23 @@
 
 {% block content %}
 
-{% if scenario %}
-
-
-<h1>Scenario <strong>{{scenario.scenario_name}}</strong> has been added!</h1>
-<p>click <a href="/scenario_list">here</a> to see all scenarios</p>
-
-{% endif %}
-
-
-
-<h1> {% block title %} Scenario Creator {% endblock %}</h1>
+<h1> {% block title %} Kreator Scenariuszy {% endblock %}</h1>
 <form action="{{ url_for('scenario_add') }}" method="post">
     
     <div class = "scenario-creation-metadata">
-        <label for="name_id">Scenario name</label>
+        <label for="name_id">Nazwa Scenariusza</label>
         <input type="text" id = "name_id" name = "name_field" 
-        placeholder="scenario title" />
+        placeholder="podaj nazwe scenariusza" />
         
-        <label for = "expected_id">Expected result</label>
+        <label for = "expected_id">Spodziewany wynik</label>
         <div>
             <input type = "radio" id = "expected_id" name="expected_field" value="True"/>True
                 </div>
         <div>
             <input type = "radio" id = "expected_id" name="expected_field" value="False"/>False
                 </div>
-        <label for = "author_id">Author name</label>
-        <input id = "author_id" name = "author" type = "text" />
+        <label for = "author_id">Imie Autora</label>
+        <input id = "author_id" name = "author" type = "text" placeholder="podaj imie autora" />
     </div>
 
 

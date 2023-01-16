@@ -8,7 +8,7 @@ from app import *
 class Scenario(db.Model):
     __tablename__ = 'scenarios'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
+    name = db.Column(db.String(255), unique=True)
     expected = db.Column(db.String(50))
     steps = db.Column(db.Text)
     author = db.Column(db.String(255))
@@ -27,6 +27,16 @@ def create_scenario(name, expected, steps, author):
     db.session.commit()
 
     return scenario
+
+def remove_scenario(name):
+
+    scenario = db.session.query(Scenario).filter(Scenario.name == name)
+    
+    scenario.delete(synchronize_session = 'evaluate')
+    db.session.commit()
+
+    return f'{scenario} removed successfully'
+
 
 
 class PossibleStep(db.Model):
@@ -72,7 +82,7 @@ def create_execution(name, expected, author, steps):
     return execution
 
 def log_to_execution(execution, log):
-    execution.logs = str(execution.logs) + f"\n {datetime.now()} - {log}"
+    execution.logs = str(execution.logs) + f"\n|| {datetime.now()} - {log}"
     db.session.commit()
 
 def create_possible_step(type, name, description, example_values):

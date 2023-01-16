@@ -13,7 +13,7 @@
 
         <div id="scenario-information" class="scenario-information">
             <div class="scenario-information-select">
-                <label for="selected">wykonaj</label>
+                <label for="selected">wybrano</label>
                 <input id="selected" type="checkbox">
             </div>
             <div class="scenario-information-details">
@@ -33,10 +33,16 @@
     </div>
     {% endfor %}
 
-    <button style="width:20%;justify-content: center;" onclick="gatherScenariosToExecution()">Wykonaj wybrane
+    <div class="scenario-list-buttons">
+    <button style="background-color:red;color:white;border: 2px solid grey" onclick="gatherScenariosToRemoval()">Usuń wybrane scenariusze</button>
+    <button style="background-color:green;color:white;border: 2px solid grey" onclick="gatherScenariosToExecution()">Wykonaj wybrane
         scenariusze</button>
 
+</div>
+    
     </div>
-
+    
+    
+    
 
 {% endblock %}

@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import render_template, request, Response
 
-from models import Scenario, PossibleStep, create_scenario, Execution, create_execution
+from models import Scenario, PossibleStep, create_scenario, Execution, create_execution, remove_scenario
 from engine import start_execution
 from app import app
 
@@ -87,3 +87,20 @@ def execute():
     start_execution(execution)
 
     return data
+
+
+@app.route("/remove", methods=["POST"])
+def remove():
+
+    data = request.get_json()
+
+    for i in data:
+        print(i)
+    
+    return data
+
+
+@app.route("/history", methods=["GET"])
+def history():
+
+    return render_template('history.html', executions = Execution.query.all())

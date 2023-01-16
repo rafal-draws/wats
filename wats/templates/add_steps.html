@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
+<h1> {% block title %}Dodaj kroki do scenariusza {{ scenario_details[0]}}{% endblock %}</h1>
 <script src="../static/ScenarioCreation.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../static/style.css">
 <form  name="scenarioForm" onsubmit="printSuccess()">
 
     <input type="hidden" id="scenario_name" value="{{ scenario_details[0] }}" />
@@ -13,13 +17,13 @@
 
 
     <div class="scenario-creation-metadata">
-        <p> expected: {{ scenario_details[1] }}</p>
-        <p> author: {{ scenario_details[2] }}</p>
+        <p> Spodziewany wynik: {{ scenario_details[1] }}</p>
+        <p> Autor scenariusza: {{ scenario_details[2] }}</p>
     </div>
 
 
     <div id="scenario-creation-table" class="scenario-creation-table">
-        <button type="button" id="add_step">Add a step</button>
+        <button type="button" id="add_step">Dodaj Krok</button>
         <!-- tu wchodzą kroki do wybrania-->
     </div>
 
