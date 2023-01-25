@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class = "scenario-index">
-<h1> {% block title %} Witaj w Web Automated Testing Software! {% endblock %} </h1>
+<div class="scenario-index content-box">
+    <div class="content-header">
+        <h1> {% block title %} Witaj w WATS! {% endblock %} </h1>
+    </div>
 
-<p>Wszystkie testy są istotnym elementem w cyklu życia oprogramowania. Mają za zadanie zapewnić jakość oraz zweryfikować
-    warunki biznesowe. W tym procesie ważne są wszystkie typy testów, nieważne czy będą to testy wykonane manualnie czy
-    automatycznie. Wiadomo jednak, że potrzebne są oba i żaden nie może wykluczyć drugiego. Nie wszystkie przypadki
-    testowe wykonamy za pomocą testów automatycznych oraz nie wszystkie wykonamy za pomocą testów manualnych. W
-    najlepszym przypadku potrzebna jest osoba, która potrafi wykonywać oba rodzaje, jednak zauważalna jest tendencja
-    mniejszej liczby testerów automatycznych od testerów manualnych, ze względu na próg wejścia do branży. Wykonując
-    testy manualne nie jest potrzebna wiedza techniczna, a wiedza teoretyczna z zakresu testów, dlatego jest to
-    atrakcyjna ścieżka rozwoju dla osoby, która chce się przebranżowić. Nauka programowania oraz wiedzy z zakresu
-    architektury systemu wymaga czasu. Powstaje więc zagadnienie, jak sprawić, żeby tester manualny mógł w łatwy i
-    szybki sposób wykonać testy automatyczne.</p>
+    <div class="content-form">
+
+        <p>W – Web</p>
+        <p>A – Automation</p>
+        <p>T – Testing</p>
+        <p>S – Simplified</p>
+
+        <p>Aplikacja będzie służyła do tworzenia przypadków testowych przez prosty konfigurator, prowadzący użytkownika
+            krok po kroku do zamierzonego efektu. Po utworzeniu scenariuszy testowych pozytywnych i negatywnych,
+            użytkownik będzie mógł odtworzyć je i zobaczyć statusy poszczególnych przypadków. Jeśli dany przypadek nie
+            przeszedł próby, będzie można wyświetlić logi aplikacji i zobaczyć kody odpowiedzi błędów. W taki sposób
+            użytkownik nauczy się jak wykonać przypadek testowy. Aplikacja pozostanie prosta w użyciu, żeby zachęcić
+            użytkownika do tego typu testów oraz żeby zobaczył, że regresję całego systemu można wykonać jednym
+            przyciskiem.</p>
+    </div>
 </div>
 {% endblock %}

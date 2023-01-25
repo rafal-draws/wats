@@ -9,16 +9,50 @@
     <div class="content">
         <div class="sidebar">
             <nav>
-                <img alt = "logo" src="../static/logo.png"/>
-                <a href="{{ url_for('scenario_list') }}">Wykonaj</a>
-                <a href="{{ url_for('history') }}">Wykonane</a>
-                <a href="{{ url_for('scenario_add') }}">Stwórz</a>
-                <a href="{{ url_for('index') }}">O aplikacji</a>
+                <img id="logo" alt = "logo" src="../static/logo.svg"/>
+                <a id="scenario_list_href" class="menu_icon"
+                   href="{{ url_for('scenario_list') }}">
+                    <img src="../static/scenario_list_icon.svg"/>
+                    <p> Lista scenariuszy </p>
+                </a>
+                <a id="home_href" class="menu_icon"
+                   href="{{ url_for('index') }}">
+                    <img src="../static/home_icon.svg"/>
+                    <p> O aplikacji</p>
+                </a>
             </nav>
         </div>
         <div class="application">
             {% block content %} {% endblock %}
         </div>
     </div>
+
+    <script>
+
+        const {
+          host, hostname, href, origin, pathname, port, protocol, search
+        } = window.location
+
+        function highlightMenuPositions() {
+            highlightMenuPosition("/scenario_list",    "scenario_list_href", true)
+            highlightMenuPosition("/index",            "home_href",          true)
+            highlightMenuPosition("/",                 "home_href",          false)
+        }
+
+        function highlightMenuPosition(path, elementId, remove) {
+            var element = document.getElementById(elementId);
+            if(pathname === path) {
+                element.classList.add("menu_icon_selected");
+            } else if (!!remove) {
+                element.classList.remove("menu_icon_selected");
+            }
+        }
+
+        highlightMenuPositions()
+
+
+    </script>
+
+
 </body>
 </html>

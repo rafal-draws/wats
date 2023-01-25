@@ -9,20 +9,18 @@ class Scenario(db.Model):
     __tablename__ = 'scenarios'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True)
-    expected = db.Column(db.String(50))
     steps = db.Column(db.Text)
     author = db.Column(db.String(255))
 
-    def __init__(self, name, expected, steps, author):
+    def __init__(self, name, steps, author):
         self.name = name
-        self.expected = expected
         self.steps = steps
         self.author = author
 
 
-def create_scenario(name, expected, steps, author):
+def create_scenario(name, steps, author):
 
-    scenario = Scenario(name, expected, steps, author)
+    scenario = Scenario(name, steps, author)
     db.session.add(scenario)
     db.session.commit()
 
@@ -61,21 +59,19 @@ class Execution(db.Model):
     __tablename__ = 'execution'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
-    expected = db.Column(db.String(50))
     steps = db.Column(db.Text)
     author = db.Column(db.String(255))
     status = db.Column(db.String(64), default = "Started")
     logs = db.Column(db.Text)
 
-    def __init__(self, name, expected, steps, author):
+    def __init__(self, name, steps, author):
         self.name = name
-        self.expected = expected
         self.author = author
         self.steps = steps
 
 
-def create_execution(name, expected, author, steps):
-    execution = Execution(name, expected, steps, author)
+def create_execution(name, author, steps):
+    execution = Execution(name, steps, author)
     db.session.add(execution)
     db.session.commit()
 

@@ -2,47 +2,216 @@
 
 {% block content %}
 <script src="../static/ScenarioOperations.js"></script>
-<div class="scenario-list-container">
-    
-    
-    <h2>{% block title %}Scenariusze testowe{% endblock %}</h2>
 
+<script>
+    var results = Array.from([]);
 
-    {% for scenario in scenarios %}
-    <div id="scenario-list-item" class="scenario-list-item">
-
-        <div id="scenario-information" class="scenario-information">
-            <div class="scenario-information-select">
-                <label for="selected">wybrano</label>
-                <input id="selected" type="checkbox">
-            </div>
-            <div class="scenario-information-details">
-                <div class="scenario-information-details-name" value="{{ scenario.name }}">Nazwa scenariusza: {{
-                    scenario.name }}</div>
-                <div class="scenario-information-details-expected" value="{{ scenario.expected }}">Spodziewany wynik: {{
-                    scenario.expected }}</div>
-                <div class="scenario-information-details-author" value="{{ scenario.author }}">Autor: {{ scenario.author
-                    }}</div>
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <button class="scenario-information-steps" data="{{ scenario.steps }}">Wyświetl kroki</button>
-    </div>
+    {% for execution in executions %}
+        results.push({
+            id:     '{{execution.id}}',
+            name:   '{{execution.name}}',
+            steps:  '{{execution.steps}}',
+            author: '{{execution.author}}',
+            status: '{{execution.status}}',
+            logs:   `{{execution.logs}}`
+        })
     {% endfor %}
 
-    <div class="scenario-list-buttons">
-    <button style="background-color:red;color:white;border: 2px solid grey" onclick="gatherScenariosToRemoval()">Usuń wybrane scenariusze</button>
-    <button style="background-color:green;color:white;border: 2px solid grey" onclick="gatherScenariosToExecution()">Wykonaj wybrane
-        scenariusze</button>
+    function getResults(testName) {
+        return results.filter(it => it.name === testName);
+    }
+
+    function getLastResult(testName) {
+        var result = getResults(testName);
+        return result[result.length - 1]
+    }
+
+    function getStatus(e, testName) {
+        console.log(e)
+        console.log(testName)
+        e.innerText = testName.length
+    }
+
+    function refreshStatuses() {
+        var elements = Array.from(document.getElementsByClassName('scenario-table-body')[0]
+                .getElementsByClassName("scenario-table-name")).forEach(refreshStatus);
+    }
+
+    function refreshStatus(scenarioTableName) {
+        testName = scenarioTableName.innerText;
+        result = getLastResult(testName);
+        if(result != null) {
+            logs = result != null && result.logs != null ? result.logs : "";
+            logs = logs.toUpperCase();
+            status = logs.includes('THE TEST HAS BEEN SUCCESSFULL') ? "Poprawny"
+                : logs.includes('THE TEST HAS BEEN UNSUCCESSFULL')  ? "Błędny"
+                : result.status === 'Started' || logs.length > 0    ? "W trakcie"
+                : "";
+            scenarioTableName.parentNode.getElementsByClassName("scenario-table-status")[0].innerText = status;
+        }
+    }
+
+    function switchAutoRefresh() {
+        if(window.location.search == '?autorefresh' ) {
+            window.location.search = "";
+        } else {
+            window.location.search = "?autorefresh";
+        }
+    }
+
+    function autoRefresh() {
+        if(window.location.search === '?autorefresh' ) {
+            setTimeout(function() { window.location.href = window.location.href; }, 1000);
+        } else {
+            document.getElementById('switchAutoRefresh').classList.add("disabled");
+        }
+    }
+
+
+
+</script>
+
+
+<script>
+    var dialog = {
+        id:         "testLogsDialog",
+        testName:   "",
+        results:    Array.from([]),
+        index:      -1,
+
+        close: () => {
+            document.getElementById(dialog.id).classList.remove("dialog-visible");
+        },
+
+        show: (testName) => {
+            dialog.testName = testName;
+            dialog.results = getResults(testName);
+            dialog.index = (dialog.results ? dialog.results.length : 0) - 1;
+            dialog.reload();
+            document.getElementById(dialog.id).classList.add("dialog-visible");
+        },
+
+        reload: () => {
+            result = dialog.results[dialog.index];
+            dialog.setFieldValue('scenario-name',   result.name);
+            dialog.setFieldValue('scenario-logs',   result.logs);
+            dialog.setFieldValue('dialog-page',     dialog.index + 1);
+            dialog.setFieldValue('dialog-page-max', dialog.results.length);
+        },
+
+        setFieldValue: (field, value) => {
+            document.getElementById(dialog.id).getElementsByClassName(field)[0].innerText = value
+        },
+
+        nextPage: () => {
+            if(dialog.index < dialog.results.length - 1) {
+                dialog.index++;
+                dialog.reload();
+            }
+        },
+
+        prevPage: () => {
+            if(dialog.index > 0) {
+                dialog.index--;
+                dialog.reload();
+            }
+        },
+
+    };
+
+
+</script>
+
+<div class="dialog-frame" id="testLogsDialog">
+    <div class="dialog-header">
+        <h3 class="dialog-title"> Logi scenariusza: </h3>
+        <h3 class="dialog-title scenario-name"></h3>
+    </div>
+    <div class="dialog-content">
+        <p class="scenario-logs"></p>
+    </div>
+    <div class="dialog-footer">
+        <button class="cbutton" onclick="dialog.close()">
+            Zamknij
+        </button>
+        <div class="dialog-pager">
+            <button class="cbutton pager-nav" onclick="dialog.prevPage()"> < </button>
+            <p> Strona </p>
+            <p class="dialog-page"></p>
+            <p> z </p>
+            <p class="dialog-page-max"></p>
+            <p> </p>
+            <button class="cbutton pager-nav" onclick="dialog.nextPage()"> > </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="scenario-list-container content-box">
+    <div class="content-header">
+        <div class="content-form-buttons">
+            <h1> Scenariusze testowe </h1>
+            <button class="cbutton" onclick="viewNewScenario()" >
+                + Dodaj scenariusz
+            </button>
+        </div>
+    </div>
+
+    <div class="content-form">
+
+        <div class="content-form-title">
+            <h2> Lista scenariuszy </h2>
+            <div class="content-header-buttons">
+                <button class="cbutton" onclick="switchAutoRefresh()" id="switchAutoRefresh">
+                    Automatyczne odświeżanie
+                </button>
+            </div>
+        </div>
+
+        <table class="scenario-table">
+            <thead>
+            <tr>
+                <td class="scenario-table-select"></td>
+                <td class="scenario-table-name"> Nazwa scenariusza</td>
+                <td class="scenario-table-author"> Autor</td>
+                <td class="scenario-table-author"> Wynik testu</td>
+                <td class="scenario-table-actions"></td>
+            </tr>
+            </thead>
+            <tbody class="scenario-table-body">
+
+            {% for scenario in scenarios %}
+            <tr>
+                <td class="scenario-table-select"><input class="select" type="checkbox"></td>
+                <td class="scenario-table-name"> {{ scenario.name }}</td>
+                <td class="scenario-table-author"> {{ scenario.author }}</td>
+                <td class="scenario-table-status"></td>
+                <td class="scenario-table-actions">
+                    <button class="cbutton" onclick="dialog.show('{{ scenario.name }}')">Szczegóły</button>
+                </td>
+            </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+
+        <div class="content-form-buttons">
+            <button class="cbutton caution" onclick="removeScenarios()">
+                Usuń
+            </button>
+            <button class="cbutton" onclick="executeScenarios()">
+                Wykonaj
+            </button>
+        </div>
+
+    </div>
 
 </div>
-    
-    </div>
-    
-    
-    
+
+<script>
+    refreshStatuses()
+    autoRefresh();
+</script>
 
 {% endblock %}

@@ -1,32 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1> {% block title %} Kreator Scenariuszy {% endblock %}</h1>
-<form action="{{ url_for('scenario_add') }}" method="post">
-    
-    <div class = "scenario-creation-metadata">
-        <label for="name_id">Nazwa Scenariusza</label>
-        <input type="text" id = "name_id" name = "name_field" 
-        placeholder="podaj nazwe scenariusza" />
-        
-        <label for = "expected_id">Spodziewany wynik</label>
-        <div>
-            <input type = "radio" id = "expected_id" name="expected_field" value="True"/>True
-                </div>
-        <div>
-            <input type = "radio" id = "expected_id" name="expected_field" value="False"/>False
-                </div>
-        <label for = "author_id">Imie Autora</label>
-        <input id = "author_id" name = "author" type = "text" placeholder="podaj imie autora" />
+<div class="content-box">
+    <div class="content-header">
+            <h1> Scenariusze testowe </h1>
     </div>
+    <div class="content-form">
 
+        <form action="{{ url_for('scenario_add') }}" method="post">
 
-<div class = "scenario-creation-submitbuttons">
-    <div></div>
-    <div></div>
-    <div></div>
-    <input type = "submit" value="Dodaj Kroki">
+            <div class = "scenario-creation-metadata">
+                <div class="field">
+                    <label class="label" for="name_id">Nazwa scenariusza</label>
+                    <input class="value" type="text" id = "name_id" name = "name_field" placeholder="Podaj nazwę scenariusza" />
+                </div>
+
+                <div class="field">
+                    <label class="label" for = "author_id">Autor scenariusza</label>
+                    <input class="value" id = "author_id" name = "author" type = "text" placeholder="Podaj imię autora" />
+                </div>
+            </div>
+
+            <div class = "content-form-buttons">
+                <input type = "submit" value="Dodaj Kroki" class="cbutton">
+            </div>
+
+        </form>
+
+    </div>
 </div>
-</form>
 {% endblock %}

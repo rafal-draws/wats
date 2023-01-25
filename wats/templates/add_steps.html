@@ -1,44 +1,51 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h1> {% block title %}Dodaj kroki do scenariusza {{ scenario_details[0]}}{% endblock %}</h1>
+
 <script src="../static/ScenarioCreation.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="../static/style.css">
-<form  name="scenarioForm" onsubmit="printSuccess()">
 
-    <input type="hidden" id="scenario_name" value="{{ scenario_details[0] }}" />
-    <input type="hidden" id="expected" value="{{ scenario_details[1] }}" />
-    <input type="hidden" id="author_name" value="{{ scenario_details[2] }}" />
-    <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
-
-
-
-    <div class="scenario-creation-metadata">
-        <p> Spodziewany wynik: {{ scenario_details[1] }}</p>
-        <p> Autor scenariusza: {{ scenario_details[2] }}</p>
+<div class="content-box">
+    <div class="content-header">
+        <h1> {% block title %}Dodaj kroki do scenariusza {% endblock %}</h1>
     </div>
+    <div class="content-form">
 
+        <div class="content-form-title">
+            <h3> Nazwa scenariusza: {{ scenario_details[0] }}</h3>
+            <h3> Autor scenariusza: {{ scenario_details[1] }}</h3>
+        </div>
 
-    <div id="scenario-creation-table" class="scenario-creation-table">
-        <button type="button" id="add_step">Dodaj Krok</button>
-        <!-- tu wchodzą kroki do wybrania-->
+        <form  name="scenarioForm" onsubmit="printSuccess()">
+
+            <input type="hidden" id="scenario_name" value="{{ scenario_details[0] }}" />
+            <input type="hidden" id="author_name" value="{{ scenario_details[1] }}" />
+            <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
+
+            <div class="">
+
+                <div id="scenario-creation-table" class="scenario-creation-table scenario-section">
+                    <label>Wybierz kolejny krok:</label>
+                    <!-- tu wchodzą kroki do wybrania-->
+                </div>
+
+                <div class="scenario-section">
+
+                    <button type="button" id="add_step" class="cbutton">+ Dodaj Krok</button>
+
+                </div>
+
+            </div>
+
+            <div class="content-form-buttons scenario-section">
+                <input class="cbutton" type="submit" id="submit_scenario_button" value="Dodaj scenariusz" onclick="submitScenario()">
+            </div>
+
+        </form>
+
     </div>
-
-    <div class="scenario-creation-submitbuttons">
-        <div></div>
-        <div></div>
-        <div></div>
-        <input type="button" id="download_json" value="Pobierz scenariusz">
-        <input type="submit" id="submit_scenario_button" value="Dodaj Scenariusz" onclick="submitScenario()">
-    </div>
-</form>
-
-
-
-
+</div>
 
 <script>
     var scenario_creation_table = document.getElementById('scenario-creation-table');
@@ -85,7 +92,6 @@
 
 
         bodyDict['scenario_name'] = document.getElementById('scenario_name').value;
-        bodyDict['expected'] = document.getElementById('expected').value;
         bodyDict['author_name'] = document.getElementById('author_name').value;
         
 
@@ -120,12 +126,10 @@
                 body: requestBody,
             }
         );
-
     }
 
     function printSuccess(){
         alert("Scenario has been added succesfully!");
-        window.location.assign('localhost:5000')
     }
 
 </script>

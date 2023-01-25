@@ -15,8 +15,9 @@ def index():
 def scenario_list():
 
     scenarios = Scenario.query.all()
+    executions = Execution.query.all()
 
-    return render_template('scenario_list.html', scenarios=scenarios)
+    return render_template('scenario_list.html', scenarios=scenarios, executions=executions)
 
 
 @app.route("/scenario_add", methods=["GET", "POST"])
@@ -32,10 +33,9 @@ def scenario_add():
         return render_template('scenario_add.html', steps=steps)
 
     scenario_name = request.form.get('name_field')
-    scenario_expected = request.form.get('expected_field')
     scenario_author = request.form.get('author')
 
-    scenario_details = [scenario_name, scenario_expected, scenario_author]
+    scenario_details = [scenario_name, scenario_author]
 
     return render_template('add_steps.html', scenario_details=scenario_details, step_names=step_names)
 
@@ -64,7 +64,6 @@ def scenario_add_test():
 
     created_scenario = create_scenario(
         data['scenario_name'],
-        data['expected'],
         str(data['steps']),
         data['author_name'])
 
@@ -81,8 +80,8 @@ def execute():
         return render_template('executed_scenarios.html')
 
     data = request.get_json()
-
-    execution = create_execution(data['name'], data['expected'], data['author'], data['steps'])
+    scenario = Scenario.query.filter_by(name=data['name']).first()
+    execution = create_execution(data['name'], scenario.author, scenario.steps)
 
     start_execution(execution)
 
@@ -95,8 +94,8 @@ def remove():
     data = request.get_json()
 
     for i in data:
-        print(i)
-    
+        remove_scenario(data['name'])
+
     return data
 
 

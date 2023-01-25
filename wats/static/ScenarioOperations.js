@@ -1,57 +1,20 @@
-function gatherScenariosToExecution() {
+function executeScenarios() {
 
-    var elements = Array.from(document.getElementsByClassName('scenario-list-item'));
-
-
-    for (const c in elements) {
-
-
-        let selectedScenario = elements[c].childNodes[1].childNodes[1].children['selected'].checked; // select is turned on
-
-        if (selectedScenario == true) {
-            console.log("iteration : ", c)
-
-            let dataDict = {};
-
-            dataDict['steps'] = elements[c].childNodes[3].getAttribute('data');
-            dataDict['name'] = elements[c].childNodes[1].childNodes[3].children[0].getAttribute('value');
-            dataDict['expected'] = elements[c].childNodes[1].childNodes[3].children[1].getAttribute('value');
-            dataDict['author'] = elements[c].childNodes[1].childNodes[3].children[2].getAttribute('value');
-        
-            console.log(dataDict)
-
-            sendForExecution(dataDict)
-        }
-    }
+    var elements = Array.from(document.getElementsByClassName('scenario-table')[0].getElementsByClassName("select"))
+    elements = elements.filter(it => !!it.checked);
+    elements = elements.map(it => it.parentNode.parentNode.getElementsByClassName('scenario-table-name')[0].innerText);
+    elements.forEach(it => sendForExecution({'name': it}));
+    window.location.href = window.location.href;
 
 }
 
-function gatherScenariosToRemoval() {
+function removeScenarios() {
 
-    var elements = Array.from(document.getElementsByClassName('scenario-list-item'));
-
-        //TODO
-
-    for (const c in elements) {
-
-
-        let selectedScenario = elements[c].childNodes[1].childNodes[1].children['selected'].checked; // select is turned on
-
-        if (selectedScenario == true) {
-            console.log("iteration : ", c)
-
-            let dataDict = {};
-
-            dataDict['steps'] = elements[c].childNodes[3].getAttribute('data');
-            dataDict['name'] = elements[c].childNodes[1].childNodes[3].children[0].getAttribute('value');
-            dataDict['expected'] = elements[c].childNodes[1].childNodes[3].children[1].getAttribute('value');
-            dataDict['author'] = elements[c].childNodes[1].childNodes[3].children[2].getAttribute('value');
-        
-            console.log(dataDict)
-
-            sendForRemoval(dataDict)
-        }
-    }
+    var elements = Array.from(document.getElementsByClassName('scenario-table')[0].getElementsByClassName("select"))
+    elements = elements.filter(it => !!it.checked);
+    elements = elements.map(it => it.parentNode.parentNode.getElementsByClassName('scenario-table-name')[0].innerText);
+    elements.forEach(it => sendForRemoval({'name': it}));
+    window.location.href = window.location.href;
 
 }
 
@@ -78,4 +41,8 @@ function sendForRemoval(body){
             }
         }
     );
+}
+
+function viewNewScenario() {
+    window.location.href = '/scenario_add';
 }
