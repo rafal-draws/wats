@@ -94,9 +94,17 @@
         reload: () => {
             result = dialog.results[dialog.index];
             dialog.setFieldValue('scenario-name',   result.name);
-            dialog.setFieldValue('scenario-logs',   result.logs);
+            dialog.setFieldValue('scenario-logs',   dialog.prettyLogs(result.logs));
             dialog.setFieldValue('dialog-page',     dialog.index + 1);
             dialog.setFieldValue('dialog-page-max', dialog.results.length);
+        },
+
+        prettyLogs: (logs) => {
+            if(logs != null) {
+                logs = logs.replaceAll("&#39;", "'");
+                logs = logs.replaceAll("&#34;", "\"");
+            }
+            return logs;
         },
 
         setFieldValue: (field, value) => {

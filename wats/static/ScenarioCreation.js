@@ -2,6 +2,22 @@ function removeStep(e) {
     e.parentNode.parentNode.parentNode.remove();
 }
 
+function createRemoveButton(e) {
+    var removeButton = document.createElement('div');
+    removeButton.id = e.target.id + '-remove';
+    removeButton.className = 'scenario-creation-step-remove';
+    removeButton.innerHTML = '<button type="button" id="add_step" class="cbutton" onclick="removeStep(this)">- Usuń krok</button>';
+    return removeButton;
+}
+
+function createTooltipButton(e, msg) {
+    var tooltip = document.createElement('div');
+    tooltip.id = e.target.id + '-tooltip';
+    tooltip.className = 'tooltip';
+    tooltip.innerHTML = '? <div class="tooltiptext"> ' + msg + ' </div>';
+    return tooltip;
+}
+
 function setPossibleSteps(e) {
 
     var select = document.getElementById(e.target.id);
@@ -21,20 +37,10 @@ function setPossibleSteps(e) {
             val_input.setAttribute('data', 'url');
             val_input.placeholder = 'https://poprawnyadres.com/';
 
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip';
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na przedostanie się na zdefiniowany URL. </div>';
-
-            var removeButton = document.createElement('div');
-            removeButton.id = e.target.id + '-remove';
-            removeButton.className = 'scenario-creation-step-remove';
-            removeButton.innerHTML = '<button type="button" id="add_step" class="cbutton" onclick="removeStep(this)">- Usuń krok</button>';
-
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
-            settings.append(removeButton);
+            settings.append(createTooltipButton(e, 'Pozwala na przedostanie się na zdefiniowany URL.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'refresh':
@@ -49,14 +55,10 @@ function setPossibleSteps(e) {
             val_input.placeholder = '1';
             val_input.setAttribute('hidden', 'true');
 
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na odświeżenie strony. </div>';
-
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala na odświeżenie strony.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'back':
@@ -70,14 +72,10 @@ function setPossibleSteps(e) {
             val_input.placeholder = 'ilość (np. 5)';
             val_input.setAttribute('data', 'amount');
 
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na cofnięcie do poprzedniej strony zdefiniowaną ilość razy </div>';
-
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala na cofnięcie do poprzedniej strony zdefiniowaną ilość razy'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'forward':
@@ -91,14 +89,10 @@ function setPossibleSteps(e) {
             val_input.placeholder = 'ilość (np. 5)';
             val_input.setAttribute('data', 'amount');
 
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na przejście do następnej strony zdefiniowaną ilość razy </div>';
-
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala na przejście do następnej strony zdefiniowaną ilość razy'));
+            settings.append(createRemoveButton(e));
             break;    
 
         case 'wait':
@@ -112,14 +106,10 @@ function setPossibleSteps(e) {
             val_input.placeholder = 'Ilość w sekundach (np. 60 - minuta czekania)';
             val_input.setAttribute('data', 'amount');
 
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na oczekiwanie danej ilości sekund. </div>';
-
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala na oczekiwanie danej ilości sekund.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'take_screenshot':
@@ -133,15 +123,10 @@ function setPossibleSteps(e) {
             val_input.placeholder = 'nazwa-zrzutu-ekranu';
             val_input.setAttribute('data', 'name');
 
-
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na zrobienie zrzutu ekranu okna przeglądarki </div>';
-
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala na zrobienie zrzutu ekranu okna przeglądarki'));
+            settings.append(createRemoveButton(e));
             break;
 
         // element interactions
@@ -157,14 +142,10 @@ function setPossibleSteps(e) {
             val_input.placeholder = "XPATH, np. '//*[@value='login']'";
             val_input.setAttribute('data', 'xpath');
 
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala klinięcie elementu (zlokalizowanego za pomocą wartości XPATH) </div>';
-
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala klinięcie elementu (zlokalizowanego za pomocą wartości XPATH)'));
+            settings.append(createRemoveButton(e));
             break;
         
         case 'send_keys_to_element':
@@ -182,15 +163,11 @@ function setPossibleSteps(e) {
             keys_to_send.placeholder = 'wartość tekstowa do wyslania';
             keys_to_send.setAttribute('data', 'keysToSend');
 
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na wysłanie tekstu do elementu (zlokalizowanego za pomocą wartości XPATH) </div>';
-
             step_container.append(settings);
             settings.append(val_input);
             settings.append(keys_to_send);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala na wysłanie tekstu do elementu (zlokalizowanego za pomocą wartości XPATH)'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'clear_element':
@@ -203,15 +180,11 @@ function setPossibleSteps(e) {
             var val_input = document.createElement('input');
             val_input.placeholder = "XPATH, np. '//*[@value='login']'";
             val_input.setAttribute('data', 'xpath');
-            
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Czyści element (np. input) z tekstu. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Czyści element (np. input) z tekstu.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'choose_from_list':
@@ -233,17 +206,12 @@ function setPossibleSteps(e) {
             values.placeholder = "wartosci,dzielone,przecinkiem";
             values.setAttribute('data', 'values');
 
-
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na wybór jednego lub więcej elementów z listy. </div>';
-
             step_container.append(settings);
             settings.append(locator);
             settings.append(type);
             settings.append(values);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Pozwala na wybór jednego lub więcej elementów z listy.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'click_enter':
@@ -253,13 +221,9 @@ function setPossibleSteps(e) {
             settings.id = 'settings';
             settings.className = 'scenario-creation-step-settings_clickenter';
 
-            
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> naciska przycisk enter (przydatne przy submitach) </div>';
             step_container.append(settings);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'naciska przycisk enter (przydatne przy submitach)'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'assert_title_has':
@@ -272,15 +236,11 @@ function setPossibleSteps(e) {
             var val_input = document.createElement('input');
             val_input.placeholder = "np. WATS | Scenario Creator";
             val_input.setAttribute('data', 'string');
-            
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy tytuł strony zawiera podany ciąg znaków. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Potwierdza, czy tytuł strony zawiera podany ciąg znaków.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'assert_title_is':
@@ -293,15 +253,11 @@ function setPossibleSteps(e) {
             var val_input = document.createElement('input');
             val_input.placeholder = "np. WATS | Scenario Creator";
             val_input.setAttribute('data', 'string');
-            
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy tytuł strony to podany ciąg znaków. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Potwierdza, czy tytuł strony to podany ciąg znaków.'));
+            settings.append(createRemoveButton(e));
             break;
         case 'assert_element_exist':
             removeSettings(step_container)
@@ -313,15 +269,11 @@ function setPossibleSteps(e) {
             var val_input = document.createElement('input');
             val_input.placeholder = "XPATH";
             val_input.setAttribute('data', 'xpath');
-            
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'assert_element_contains_string':
@@ -339,15 +291,11 @@ function setPossibleSteps(e) {
             val_input.placeholder = "jakas wartosc";
             val_input.setAttribute('data', 'string');
             
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza czy element którego XPATH zdefiniowaliśmy istnieje, a następnie czy zawiera podaną wartość tekstową. </div>';
-
             step_container.append(settings);
             settings.append(locator);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Potwierdza czy element którego XPATH zdefiniowaliśmy istnieje, a następnie czy zawiera podaną wartość tekstową.'));
+            settings.append(createRemoveButton(e));
             break;
 
         case 'assert_string_exists':
@@ -360,15 +308,11 @@ function setPossibleSteps(e) {
             var val_input = document.createElement('input');
             val_input.placeholder = "string";
             val_input.setAttribute('data', 'string');
-            
-            var tooltip = document.createElement('div');
-            tooltip.id = e.target.id + '-tooltip';
-            tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy </div>';
 
             step_container.append(settings);
             settings.append(val_input);
-            settings.append(tooltip);
+            settings.append(createTooltipButton(e, 'Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy'));
+            settings.append(createRemoveButton(e));
             break;
 
         case ' --- ':
