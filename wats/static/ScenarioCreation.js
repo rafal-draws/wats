@@ -24,7 +24,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip';
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na przedostanie się na zdefiniowany URL </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na przedostanie się na zdefiniowany URL. </div>';
 
             var removeButton = document.createElement('div');
             removeButton.id = e.target.id + '-remove';
@@ -52,7 +52,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na odświeżenie strony zdefiniowaną ilość razy </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na odświeżenie strony. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -109,13 +109,13 @@ function setPossibleSteps(e) {
             settings.className = 'scenario-creation-step-settings';
 
             var val_input = document.createElement('input');
-            val_input.placeholder = 'ilość w sekundach (np. 60 - minuta czekania)';
+            val_input.placeholder = 'Ilość w sekundach (np. 60 - minuta czekania)';
             val_input.setAttribute('data', 'amount');
 
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na oczekiwanie danej ilości sekund </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na oczekiwanie danej ilości sekund. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -160,7 +160,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> pozwala na wysłanie tekstu do elementu (zlokalizowanego za pomocą wartości XPATH) </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala klinięcie elementu (zlokalizowanego za pomocą wartości XPATH) </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -185,7 +185,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> pozwala na wysłanie tekstu do elementu (zlokalizowanego za pomocą wartości XPATH) </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na wysłanie tekstu do elementu (zlokalizowanego za pomocą wartości XPATH) </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -207,7 +207,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Czyści element (np. input) z tekstu) </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Czyści element (np. input) z tekstu. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -237,7 +237,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> pozwala na wybór jednego lub więcej elementów z listy </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Pozwala na wybór jednego lub więcej elementów z listy. </div>';
 
             step_container.append(settings);
             settings.append(locator);
@@ -276,7 +276,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy tytuł strony to zawiera podany ciag znakow </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy tytuł strony zawiera podany ciąg znaków. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -297,7 +297,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy tytuł strony to podany ciag znakow </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy tytuł strony to podany ciąg znaków. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -317,7 +317,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy. </div>';
 
             step_container.append(settings);
             settings.append(val_input);
@@ -342,7 +342,7 @@ function setPossibleSteps(e) {
             var tooltip = document.createElement('div');
             tooltip.id = e.target.id + '-tooltip';
             tooltip.className = 'tooltip'
-            tooltip.innerHTML = '? <div class="tooltiptext"> otwierdza najpierw czy element którego XPATH zdefiniowaliśmy istnieje, a potem czy zawiera podaną wartość tekstową </div>';
+            tooltip.innerHTML = '? <div class="tooltiptext"> Potwierdza czy element którego XPATH zdefiniowaliśmy istnieje, a następnie czy zawiera podaną wartość tekstową. </div>';
 
             step_container.append(settings);
             settings.append(locator);
